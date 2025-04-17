@@ -44,14 +44,23 @@ export const emailTemplate = async (emailId: string, bodyContent: string) => {
     </div>
     <div class="content">
       ${bodyContent}
-      <div class="qr-container">
-        <img src="cid:qr-code" alt="QR Code" width="180" height="180" />
-      </div>
       <div class="footer">
         <p>
           Love,<br />
           <strong>${templateConfig.orgTitle}</strong><br />
         </p>
+        <div style="text-align: center; margin-top: 5px;">
+          <img src="https://c2w85ig2lt.ufs.sh/f/elHNGJqHN4xJTWcXzJYP3H8yawieBN79GIJUZRmd526qgOfY" style="max-width: 100%;"/>
+        </div>
+      </div>
+      <hr style="margin-top: 25px; margin-bottom: 20px;">
+      <div>
+        <p style="text-align: center; font-size: 14px;">
+          Show us the following QR code when you join for your first session.
+        </p>
+        <div class="qr-container">
+          <img src="cid:qr-code" alt="QR Code" width="180" height="180" />
+        </div>
       </div>
     </div>
   </div>

@@ -1,6 +1,4 @@
 import config from "config";
-import qrcode from 'qrcode';
-
 
 const templateConfig = config.get<{
   logo: string;
@@ -15,7 +13,6 @@ const emailConfig = config.get<{
 }>('email');
 
 export const emailTemplate = async (emailId: string, bodyContent: string) => {
-  const qrHtml = await qrIdTemplate(emailId);
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -31,8 +28,8 @@ export const emailTemplate = async (emailId: string, bodyContent: string) => {
     .header p { color: ${templateConfig.accent[0]}; margin: 5px 0 0; }
     .content { padding: 30px; }
     .content h3 { color: #333; }
-    .content p { font-size: 15px; line-height: 1.6; color: #555; }
-    .qr-container { text-align: center; margin-bottom: 40px }
+    .content p { font-size: 14px; line-height: 1.6; color: #555; }
+    .qr-container { text-align: center; margin-bottom: 20px }
     .qr-container img { border-radius: 8px }
     .footer p { color: #333; }
     .footer a { color: #333; text-decoration: none; }
@@ -52,7 +49,7 @@ export const emailTemplate = async (emailId: string, bodyContent: string) => {
       </div>
       <div class="footer">
         <p>
-          Warm regards,<br />
+          Love,<br />
           <strong>${templateConfig.orgTitle}</strong><br />
         </p>
       </div>
@@ -61,10 +58,3 @@ export const emailTemplate = async (emailId: string, bodyContent: string) => {
 </body>
 </html>
 `}
-
-const qrIdTemplate = async (email: string) => {
-  // const qrDataUrl = await qrcode.toDataURL(email);
-  return `
- 
-  `;
-};

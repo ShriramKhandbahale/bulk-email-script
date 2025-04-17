@@ -33,24 +33,33 @@ const transporter = nodemailer.createTransport({
 });
 
 const generateQrBuffer = async (email: string): Promise<Buffer> => {
-  return await qrcode.toBuffer(email);
+  return await qrcode.toBuffer(email, {
+    color: {
+      dark: templateConfig.accent[0],
+      light: templateConfig.accent[1]
+    }
+  });
 };
 
 const sendEmail = async (recipient: Recipient) => {
   const qrBuffer = await generateQrBuffer(recipient.email);
 
   const htmlContent = await emailTemplate(recipient.email, `
-    <p>Hello ${recipient.name}</p>
-    <p>
-      Nice to Meet you<br>
-      It is such a lovely day.<br><br>  
-    </p>
+    <p>Hello <strong>${recipient.name}</strong>,</p>
+    <p>Welcome to the Mumbai Bookies community</p>
+    <p>I'm glad that you're going to join us this time. We're super excited to read with you!</p>
+    <p>Whether you’re here to dive into the depths of literature, discover hidden gems, or simply enjoy the company of fellow book lovers, this community is going to be a space where we read, and we can belong!</p>
+    <p>Please join the WhatsApp group below for location and other updates (don't forget to check the group description)</p>
+    <p><a href="https://chat.whatsapp.com/I4ga8C0mZC6II49RhxgHGg">Click here to join the Whatsapp group</a></p>
+    <p><strong>Please only join if you intend to actually come this Sunday :)</strong></p>
+    <p>SEE YOU ON SUNDAY</p>
+    <br>
   `);
 
   const mailOptions = {
     from: `"${templateConfig.orgTitle}" <${emailConfig.senderEmail}>`,
     to: recipient.email,
-    subject: `Hello ${recipient.name}`,
+    subject: `YOU MADE IT TO MUMBAI BOOKIES ${recipient.name.split(" ")[0].toUpperCase()}!`,
     html: htmlContent,
     attachments: [{
       filename: 'qr.png',
